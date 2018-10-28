@@ -12,3 +12,18 @@ before_install:
 # add -- --coverage to exit automatically
 script:
   - docker run moetion/docker-react npm run test -- --coverage
+
+# AWS deployment
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-2-827576790373"
+  bucket_path: "docker-react"
+  #only deploy to AWS when push is made to master
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"
