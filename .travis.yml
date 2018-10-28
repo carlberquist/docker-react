@@ -1,0 +1,14 @@
+sudo: required
+
+# install copy of docker on travis
+services:
+  - docker
+
+# commands to be run before tests run
+before_install:
+  - docker build -t moetion/docker-react -f Dockerfile.dev .
+
+# run commands to test (override default commands)
+# add -- --coverage to exit automatically
+script:
+  - docker run moetion/docker-react npm run test -- --coverage
